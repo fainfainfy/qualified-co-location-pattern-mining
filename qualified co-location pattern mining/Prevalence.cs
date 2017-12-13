@@ -15,7 +15,7 @@ namespace qualified_co_location_pattern_mining
         SortedList<string, List<SortedSet<int>>> listN = new SortedList<string, List<SortedSet<int>>>();
         //==============================================================================给定一阶模式为TypeInsList给定一阶T为实例邻居表INs
         
-        //==================================================================生成二阶模式  //
+        //==================================================================生成二阶模式// //
         public SortedList<string, List<SortedSet<int>>>TwoSize(SortedList<int, SortedSet<int>> INs, double min_prev, List<int> TypeCountList, List<int> TypeinsList)
         {
             SortedList<string, List<SortedSet<int>>> T = new SortedList<string, List<SortedSet<int>>>();
