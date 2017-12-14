@@ -218,7 +218,7 @@ namespace qualified_co_location_pattern_mining
                                     SortedSet<int> rowins = new SortedSet<int>();
                                     rowins.Add(TypeCountList[i - 1] + 1 + x);//保存i实例
                                     rowins.Add(item);//保存j实例
-                                    GetRowCN(rowins,INs);
+                                    //GetRowCN(rowins,INs);
                                     //SortedSet<int> snset = new SortedSet<int>(l.Cast<int>());
                                     listrow.Add(GetRowCN(rowins, INs));
                                 }
@@ -443,7 +443,7 @@ namespace qualified_co_location_pattern_mining
               return T;
           }
           */
-           public SortedList<string, List<SortedSet<int>>> MoreSize(SortedList<string, List<SortedSet<int>>> LastCN, double min_prev, List<int> TypeCountList, List<int> TypeinsList)
+           public SortedList<string, List<SortedSet<int>>> MoreSize(SortedList<string, List<SortedSet<int>>> LastCN, SortedList<int,  SortedSet<int> > INs, double min_prev, List<int> TypeCountList, List<int> TypeinsList)
            {
                SortedList<string, List<SortedSet<int>>> T = new SortedList<string, List<SortedSet<int>>>();
                //拿出上一阶模式进行扩展
@@ -533,11 +533,11 @@ namespace qualified_co_location_pattern_mining
                    }
                    for (int jj = 0; jj < realextendlist.Count; jj++)//对于每一个J特征
                    {
-                       List<SortedSet<int>> listrowinj = new List<SortedSet<int>>();//初始化,长度为lastT的阶
+                       List<SortedSet<int>> listrowinj = new List<SortedSet<int>>();//初始化,长度为lastT的阶,pname=ABC的时候，listrowij[0]=Aset,即A的所有参加在ABCD中的实例集合
                        for (int ii = 0; ii < snew.SplitString1(pname, '+').Count; ii++)
                        {
                            SortedSet<int> newset = new SortedSet<int>() { };
-                           listrowinj.Add(newset);
+                           listrowinj.Add(newset);//用来计算参与率
                        }
                        //针对每一列，建立包含该特征实例的行实例表
                        SortedSet<int> rowset = new SortedSet<int>();
@@ -545,21 +545,24 @@ namespace qualified_co_location_pattern_mining
                        {
                            if (LastCN[pname][ii].Contains(realextendlist[jj]))//如果该行含有特征j
                            {
-                               SortedSet<int> takeinsset = new SortedSet<int>();//按序取出行实例邻居中的前k-1个则为原行实例
-                               takeinsset = LastCN[pname][ii];//索引到行         
+                               SortedSet<int> takeinsset = new SortedSet<int>() { };//按序取出行实例邻居中的前k-1个则为原行实例
+                               //takeinsset = LastCN[pname][ii];//索引到行         
                                for (int iii = 0; iii < snew.SplitString1(pname, '+').Count(); iii++)//
                                {
-                                   listrowinj[iii].Add(takeinsset.ToList()[iii]);//存放了所有参与在T中的k-1阶特征的实例投影，及ABC的话，listrowinj.count=3,listrowinj[0]放A在ABCD中的实例集合
-                               }
-                               rowset.Add(ii);
+                                   listrowinj[iii].Add(LastCN[pname][ii].ToList()[iii]);//存放了所有参与在T中的k-1阶特征的实例投影，及ABC的话，listrowinj.count=3,listrowinj[0]放A在ABCD中的实例集合
+                                   takeinsset.Add(LastCN[pname][ii].ToList()[iii]);
+                               }//每一列
+                               rowset.Add(ii);//收集参加了ABCD的行实例编号
                                foreach (var item in LastCN[pname][ii])
                                {
                                    if (TypeinsList[item] == realextendlist[jj])//构建行实例邻居
                                    {
-                                       SortedSet<int> newrowset = new SortedSet<int>() { item };
-                                       newrowset.UnionWith(LastCN[pname][ii]);//======================================
-                                       listt.Add(newrowset);
-                                       //记录pname中行实例的特征投影                                      
+                                      
+                                       //SortedSet<int> newrowset = new SortedSet<int>() { item };
+                                       //newrowset.UnionWith(LastCN[pname][ii]);//======================================
+                                       listt.Add(GetRowCN(takeinsset, INs));//得到该行实例的邻居
+                                                                            //记录pname中行实例的特征投影      
+                                                                            
                                    }
                                }
                                
@@ -577,12 +580,21 @@ namespace qualified_co_location_pattern_mining
                            plist = snew.SplitString1(pname, '+');
                            double f1sum = double.Parse((TypeCountList[int.Parse(plist[iii])] - TypeCountList[int.Parse(plist[iii]) - 1]).ToString());
                            double pri = double.Parse(listrowinj[iii].ToString()) / f1sum;
-                           PIIlist.Add(pri);
+                           PIIlist.Add(pri);//对每一个上一阶模式特征分别计算参与率
                        }
                        PIIlist.Add(PIJlist[jj]);//得到pname+j的所有特征参与率
+                       SortedSet<int> PIIset = new SortedSet<int>();
+                       for (int iii = 0; iii < PIIlist.Count; iii++)
+                       {
+                            PIIset.Add(int.Parse((PIIlist[iii]*100).ToString()));
+
+                       }
                        if (PIIlist.Min() > min_prev)
                        {
                            string newpname = pname + "+" + realextendlist[jj];
+                           listt.Add(PIIset);//末尾加上参与度
+                          
+
                            T.Add(newpname, listt);
                        }
 
