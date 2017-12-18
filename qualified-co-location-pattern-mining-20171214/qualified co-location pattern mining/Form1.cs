@@ -180,16 +180,6 @@ namespace qualified_co_location_pattern_mining
             INs = dg.InstanceNeighbor(maxx, maxy, (int)rand, dg.Grid(maxx, maxy, (int)rand, dg.instancelized(begindataList)), dg.instancelized(begindataList));
             //--------------------------------------------------------------------------------------产生模式 
             Prevalence classprevalence = new Prevalence();
-            //for (int i = 1; i < INs.Count()+1; i++)//讲实例表分到不同的PA中
-            //{
-            //    StringBuilder m1 = new StringBuilder();
-            //    foreach (var item in INs[i])
-            //    {
-            //        m1.Append(item);
-            //        m1.Append(",");
-            //    }
-            //    MessageBox.Show(m1.ToString());
-            //}
             T2 = classprevalence.TwoSize(INs, prev, TypeCountList, TypeInsList);//得到二阶模式
 
             //================================================================输出头文件行1特征表行2min_prev
@@ -235,6 +225,9 @@ namespace qualified_co_location_pattern_mining
                 sw.Close();
                 files1.Close();
             }
+            //======================================================================================================输出多阶
+            SortedList<string, List<SortedSet<int>>> MoreSize = new SortedList<string, List<SortedSet<int>>>();
+
         }
 
 
@@ -441,39 +434,45 @@ namespace qualified_co_location_pattern_mining
             TypeinsList.Add(4); TypeinsList.Add(4); TypeinsList.Add(4); TypeinsList.Add(4);
             TypeinsList.Add(5); TypeinsList.Add(5); TypeinsList.Add(5);
 
-            extendlist = newextend.ToList();//存放newextend矩阵列对应的特征号
-                                            //初始化listjj,其长度为扩展特征的个数
-            for (int ii = 0; ii < extendlist.Count; ii++)
-            {
-                listjj.Add(0);
-            }
-            SortedSet<int> unionCN = new SortedSet<int>() { };
-            for (int ii = 0; ii < listcn.Count; ii++)//得到所有的有序集合
-            {
-                unionCN.UnionWith(listcn[ii]);
-            }
-            foreach (var unitem in unionCN)
-            {
-                if (newextend.Contains(TypeinsList[unitem]))
-                {
-                    listjj[extendlist.IndexOf(TypeinsList[unitem])]++;
-                }
-            }
-            for (int i = 0; i < listjj.Count(); i++)//讲实例表分到不同的PA中
-            {
+            /* extendlist = newextend.ToList();//存放newextend矩阵列对应的特征号
+                                             //初始化listjj,其长度为扩展特征的个数
+             for (int ii = 0; ii < extendlist.Count; ii++)
+             {
+                 listjj.Add(0);
+             }
+             SortedSet<int> unionCN = new SortedSet<int>() { };
+             for (int ii = 0; ii < listcn.Count; ii++)//得到所有的有序集合
+             {
+                 unionCN.UnionWith(listcn[ii]);
+             }
+             foreach (var unitem in unionCN)
+             {
+                 if (newextend.Contains(TypeinsList[unitem]))
+                 {
+                     listjj[extendlist.IndexOf(TypeinsList[unitem])]++;
+                 }
+             }
+             for (int i = 0; i < listjj.Count(); i++)//讲实例表分到不同的PA中
+             {
 
-                MessageBox.Show(listjj[i].ToString());
-            }
+                 MessageBox.Show(listjj[i].ToString());
+             }
+
+             //测试行实例邻居
+             Prevalence pc = new Prevalence();
+             SortedSet<int> row = new SortedSet<int>() { 1, 4, 7 };
+
+             foreach (var item in pc.GetRowCN(row, INs))
+             {
+                 MessageBox.Show(item.ToString());
+             }
+
+         }*/
             #endregion
-            //测试行实例邻居
-            Prevalence pc = new Prevalence();
-            SortedSet<int> row = new SortedSet<int>() { 1, 4, 7 };
 
-            foreach (var item in pc.GetRowCN(row, INs))
-            {
-                MessageBox.Show(item.ToString());
-            }
-
-        }
+            string pname = "1+2";
+            string hh=pname.Substring(0,pname.Length-2);
+            MessageBox.Show(hh);
+        }//test函数结尾
     }
 }

@@ -198,6 +198,7 @@ namespace qualified_co_location_pattern_mining
                 List<double> pilist = new List<double>();
                 pilist = GetPI(inslist, listfi, TypeinsList, TypeCountList);//得到所有i+所有j特征的参与度
                 SortedSet<int> extenedTypeset = new SortedSet<int>();//存储所有i特征能够扩展出频繁模式的特征集合
+                extenedTypeset.Add(i);//将能够发展频繁模式的特征加入集合例如：i=A的时候，先加入A
                 //对比参与度并保存其表实例
                 for (int ii = 0; ii < pilist.Count(); ii++)//对于每一个特征j
                 {
@@ -206,8 +207,9 @@ namespace qualified_co_location_pattern_mining
                     {
                         List<SortedSet<int>> listrow = new List<SortedSet<int>>();
                         int j = i + ii + 1;
-                        string h = i + "+" + j;
-                        extenedTypeset.Add(j);//将能够发展频繁模式的特征加入集合
+                        string h = i + "+" + j;                         
+                        extenedTypeset.Add(j);//将能够发展频繁模式的特征加入集合。实际是存储与i频繁的所有特征，与其结合才能得到下一阶频繁
+                        //i =A的时候，若AB频繁，那么A,B都加入，若C,D也与A频繁，那么AB的扩展就是{A,B,C,D}，在扩展AB到下一阶时，将{A,B,C,D}.except{A,B}就能得到扩展特征
                         for (int x = 0; x < matrixij.Count; x++)//对i进行逐行统计
                         {
                             if (matrixij[x][ii] != null)
@@ -228,12 +230,18 @@ namespace qualified_co_location_pattern_mining
                         double ppi = Math.Round(pilist[ii], 2);
                         int intpi = int.Parse((ppi * 100).ToString());
                         SortedSet<int> piset = new SortedSet<int>() { intpi };
-                        listrow.Add(extenedTypeset);//行实例的倒数第二行存储发展特征
+                        //listrow.Add(extenedTypeset);//行实例的倒数第二行存储发展特征
                         listrow.Add(piset);//行实例的最后一行存储PI值
                         T.Add(h, listrow); 
                     }
-                }
-            }
+                }//测试每一个i+j结尾
+                //测试完毕所有的i+j之后可以得到所有与i频繁的所有特征，与其结合才能得到下一阶频繁的extenedTypeset
+                //对于每一个i开头的二阶模式，保留一个T作为extendset
+                string h2 = i.ToString() + "+extend";
+                List<SortedSet<int>> extendlist = new List<SortedSet<int>>();
+                extendlist.Add(extenedTypeset);
+
+            }//测试i开头的模式结尾
 
             return T;
         }
@@ -450,15 +458,18 @@ namespace qualified_co_location_pattern_mining
 
                foreach (var patternitem in LastCN)
                {
-                   string pname = patternitem.Key;
-                   //对于每一个上一阶模式，都对其进行扩展，其模式扩展集合可以确定模式扩展的特征，其邻居矩阵可以使得该模式测试其所有的下一阶
-                   SortedSet<int> extendset = new SortedSet<int>();
-                   extendset = LastCN[pname][(LastCN.Count) - 2];//得到扩展特征有序集
-                   //===========================================================测试频繁子阶
-                   SortedSet<int> newextend = new SortedSet<int>();//再次用剪枝把可扩展特征删选一遍以获得模式的最小矩阵
-                   int sign = 1;
-                   StringInstance snew = new StringInstance();
-                   foreach (var exitem in extendset)
+                string pname = patternitem.Key;                   
+                //===========================================================测试频繁子阶                  
+                StringInstance snew = new StringInstance();
+                //对于每一个上一阶模式，都对其进行扩展，其模式扩展集合可以确定模式扩展的特征，其邻居矩阵可以使得该模式测试其所有的下一阶
+                //SortedSet<int> extendset = new SortedSet<int>();
+                var extendlist1 = LastCN[pname.Substring(0,pname.Length-2) + "+extend"][0].ToList();
+               // extendlist1 = LastCN[snew.SplitString1(pname, '+')[0] + "+extend"][0].ToList();
+                var extendlist2 = snew.SplitString1(pname, '+').Select<string, int>(x => Convert.ToInt32(x));
+                var extendlist3 = extendlist1.Except(extendlist2);                
+                SortedSet<int> newextend = new SortedSet<int>();//====================再次用剪枝把可扩展特征删选一遍以获得模式的最小矩阵
+                int sign = 1;
+                foreach (var exitem in extendlist3)
                    {
                        string testpname = pname + "+" + exitem.ToString();
                        snew.SplitString1(testpname, '+');
@@ -526,6 +537,7 @@ namespace qualified_co_location_pattern_mining
                    //=======================================================使用真正的候选realextendset集合中的特征连接行实例并计算，列宽为newextend的秩，对应的值在CN中找
                    List<SortedSet<int>> listt = new List<SortedSet<int>>();//一条行实例单位
                    List<SortedSet<int>> listiinj = new List<SortedSet<int>>();//j个 特征分别参与在模式pname+j中的k-1阶的参与率最小值
+                   SortedSet<int> extendset = new SortedSet<int>();//开始计算以pname为头的模式的扩展特征
                    for (int ii = 0; ii < realextendlist.Count; ii++)//初始化
                    {
                        SortedSet<int> rowset = new SortedSet<int>() { };
@@ -564,8 +576,7 @@ namespace qualified_co_location_pattern_mining
                                                                             //记录pname中行实例的特征投影      
                                                                             
                                    }
-                               }
-                               
+                               }                               
 
                            }
 
@@ -592,16 +603,21 @@ namespace qualified_co_location_pattern_mining
                        if (PIIlist.Min() > min_prev)
                        {
                            string newpname = pname + "+" + realextendlist[jj];
+                           extendset.Add(realextendlist[jj]);
                            listt.Add(PIIset);//末尾加上参与度
-                          
-
                            T.Add(newpname, listt);
                        }
 
-                   }
+                   }//计算每个pname+jj模式结尾
 
+                // 测试完毕所有的pname + j之后可以得到所有与i频繁的所有特征，与其结合才能得到下一阶频繁的extenedTypeset
+                //对于每一个i开头的二阶模式，保留一个T作为extendset
+                string h2 = pname + "+extend";
+                List<SortedSet<int>> pnameextendlist = new List<SortedSet<int>>();
+                pnameextendlist.Add(extendset);
+                T.Add(h2, pnameextendlist);
 
-               }
+            }//计算所有pname开头的下一阶模式
 
 
                return T;
