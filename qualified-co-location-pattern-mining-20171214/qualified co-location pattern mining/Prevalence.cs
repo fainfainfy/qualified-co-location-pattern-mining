@@ -12,6 +12,7 @@ namespace qualified_co_location_pattern_mining
     class Prevalence
     {
         SortedList<string, List<SortedSet<int>>> listT = new SortedList<string, List<SortedSet<int>>>();
+       
         SortedList<string, List<SortedSet<int>>> listN = new SortedList<string, List<SortedSet<int>>>();
         //==============================================================================给定一阶模式为TypeInsList给定一阶T为实例邻居表INs
 
@@ -284,7 +285,7 @@ namespace qualified_co_location_pattern_mining
         public List<double> GetPI(List<SortedSet<int>> inslist, List<SortedSet<int>> listfi, List<int> typeins, List<int> typecount)
         {
             List<double> pilist = new List<double>();
-
+            
             for (int iii = 0; iii < inslist.Count; iii++)
             {
                 //首先计算fi的参与度
@@ -454,8 +455,8 @@ namespace qualified_co_location_pattern_mining
            public SortedList<string, List<SortedSet<int>>> MoreSize(SortedList<string, List<SortedSet<int>>> LastCN, SortedList<int,  SortedSet<int> > INs, double min_prev, List<int> TypeCountList, List<int> TypeinsList)
            {
                SortedList<string, List<SortedSet<int>>> T = new SortedList<string, List<SortedSet<int>>>();
-               //拿出上一阶模式进行扩展
-
+            //拿出上一阶模式进行扩展
+                
                foreach (var patternitem in LastCN)
                {
                 string pname = patternitem.Key;                   
@@ -622,7 +623,7 @@ namespace qualified_co_location_pattern_mining
 
                return T;
            }
-             
+           
            public static IEnumerable<List<string>> Combinations(List<string> sq, int i0, int n, int c)//将特征组合成候选模式
            {
                if (c == 0) yield return sq;

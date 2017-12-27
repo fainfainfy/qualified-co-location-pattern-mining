@@ -226,7 +226,18 @@ namespace qualified_co_location_pattern_mining
                 files1.Close();
             }
             //======================================================================================================输出多阶
-            SortedList<string, List<SortedSet<int>>> MoreSize = new SortedList<string, List<SortedSet<int>>>();
+            //初始条件：首个cn为二阶的结果，之后多阶的结果通过多次迭代形成
+            SortedList<string, List<SortedSet<int>>> CNTk = new SortedList<string, List<SortedSet<int>>>();
+            CNTk = classprevalence.MoreSize(T2,INs,prev,TypeCountList,TypeInsList);
+            while (CNTk != null)
+            {
+                SortedList<string, List<SortedSet<int>>> CNTk1 = new SortedList<string, List<SortedSet<int>>>();
+                CNTk1 = classprevalence.MoreSize(CNTk, INs, prev, TypeCountList, TypeInsList);
+                //输出CNTK1
+                
+            }
+
+
 
         }
 
