@@ -22,7 +22,7 @@ namespace qualified_co_location_pattern_mining
                     co[i, j] = new StringBuilder("");
                 }
             }
-            for (int i = 1; i < stlistins.Count; i++)//物化
+            for (int i = 1; i < stlistins.Count+1; i++)//物化
             {
                 //将特征按照s1的下标重新顺序编号
                 int hx = stlistins[i].getx(d);
@@ -51,7 +51,7 @@ namespace qualified_co_location_pattern_mining
             for (int i = 0; i < maxx + 1; i++)//-------------------------------------------------------开始遍历格
                 for (int j = 0; j < maxy + 1; j++)
                 {
-                    if (!co[i, j].Equals(""))
+                    if (co[i, j].Length!=0)
                     {
                         //string[] cp1 = co[i, j].ToString().Split(';'); 
                         List<string> cp1 = new List<string>();

@@ -8,32 +8,51 @@ namespace qualified_co_location_pattern_mining
 {
     class Occupation
     {
-        public List<SortedSet<int>>PA(List<SortedSet<int>>list)//输入实例表，划分产生PA的集合//注意在产生的实例表最后一行必须再加上一行空集，以保证行号可以完全输出
+ 
+        public List<SortedSet<int>> PA(int k,List<List<int>> list)//输入实例表，划分产生PA的集合//注意在产生的实例表最后一行必须再加上一行空集，以保证行号可以完全输出
         {
+            //人为添加空集
+            List<int> temlist1 = new List<int>() {};
+            list.Add(temlist1);
             List<SortedSet<int>> listPA = new List<SortedSet<int>>();//装PA包括的实例
-            SortedSet<int> listline = new  SortedSet<int>();//装每个PA包括的行号
-            listPA.Add(list[0]);//PA初始化
+            SortedSet<int> listline = new SortedSet<int>();//装每个PA包括的行号
+            SortedSet<int> templist = new SortedSet<int>();
+            for(int i=0;i < k; i++)
+            {
+                templist.Add(list[0][i]);
+            }
+            listPA.Add(templist);//PA初始化
             listline.Add(0);
-            for (int i = 1; i < list.Count(); i++)//将实例表分到不同的PA中
+            for (int i = 1; i < list.Count(); i++)//将实例表分到不同的PA中i
             {
                 int j = listPA.Count - 1;
                 SortedSet<int> line = new SortedSet<int>();
-                if (listPA[j].Overlaps(list[i]))
+                if (listPA[j].Overlaps(list[i].Take(k)))
                 {
-                    listPA[j].UnionWith(list[i]);
+                    listPA[j].UnionWith(list[i].Take(k));
                 }
                 else
                 {
-                    listPA.Add(list[i]);
+                    if (list[i].Count != 0)
+                    {
+                        SortedSet<int> temp1 = new SortedSet<int>();
+                        for (int ii = 0; ii < k; ii++)
+                        {
+                            temp1.Add(list[i][ii]);
+                        }
+                        listPA.Add(temp1);
+                    }
                     listline.Add(i);
                 }
             }
+            //if (listPA.Last().Count == 0)
+           // { listPA.RemoveAt(listPA.Count-1); }
             listPA.Add(listline);
             return listPA;
         }
+         
 
-        //得到相应的PA邻居CN
-        public List<SortedSet<int>> CA(SortedSet<int> listline,List<SortedSet<int>> listcn)//输入表实例行号以及表实例邻居，产生对应PA的CN的集合
+        public List<SortedSet<int>> CA(SortedSet<int> listline, List<List<int>> listcn)//输入表实例行号以及表实例邻居，产生对应PA的CN的集合
         {
             List<SortedSet<int>> listCA = new List<SortedSet<int>>();//装PA包括的实例
             List<int> line = new List<int>();
@@ -44,19 +63,24 @@ namespace qualified_co_location_pattern_mining
             }
             for (int i = 0; i < line.Count() - 1; i++)
             {
+                 
                 SortedSet<int> tmpset = new SortedSet<int>();
-                tmpset = listcn[line[i]];
+                for (int ii = 0; ii < listcn[line[i]].Count; ii++)
+                {
+                    tmpset.Add(listcn[line[i]][ii]);
+                }
                 for (int j = line[i] + 1; j < line[i + 1]; j++)
                 {
                     tmpset.UnionWith(listcn[j]);
                 }
-                listCA.Add(tmpset);
+                if (tmpset.Count != 0)
+                { listCA.Add(tmpset); }
             }
-                       
+
             return listCA;
         }
         //计算occupantionIndex
-        public double OccupationIndex(List<SortedSet<int>> listca, List<SortedSet<int>> listpa)
+        public double OccupationIndex(List<SortedSet<int>> listpa, List<SortedSet<int>> listca)
         {
             double index = 0.00;
             double sum = 0.00;

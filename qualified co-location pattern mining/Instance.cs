@@ -27,10 +27,14 @@ namespace qualified_co_location_pattern_mining
             return (x - x1) * (x - x1) + (y - y1) * (y - y1);
         }
 
-        public Boolean distance(double x1,double y1,double x2,double y2, double d)
+      
+
+        public Boolean distance(double x, double y, double x1, double y1, double rand)
         {
-            if (((x1 - x2) * (x1 - x2)) + ((y1 - y2) * (y1 - y2)) > d*d|| ((x1 - x2) * (x1 - x2)) + ((y1 - y2) * (y1 - y2))==d*d)
+            if (((x - x1) * (x - x1) + (y - y1) * (y - y1)) < rand * rand || ((x - x1) * (x - x1) + (y - y1) * (y - y1)) == rand * rand)
+            {
                 return true;
+            }
             else
                 return false;
         }

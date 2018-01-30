@@ -1,0 +1,30 @@
+E:\GIT\githubcode\NewRepo\qualified-co-location-pattern-mining-20171214\qualified co-location pattern mining\obj\Debug\qualified_co_location_pattern_mining.Form.resources
+E:\GIT\githubcode\NewRepo\qualified-co-location-pattern-mining-20171214\qualified co-location pattern mining\obj\Debug\qualified_co_location_pattern_mining.Properties.Resources.resources
+E:\GIT\githubcode\NewRepo\qualified-co-location-pattern-mining-20171214\qualified co-location pattern mining\obj\Debug\qualified co-location pattern mining.csproj.GenerateResource.Cache
+E:\GIT\githubcode\NewRepo\qualified-co-location-pattern-mining-20171214\qualified co-location pattern mining\obj\Debug\qualified co-location pattern mining.csproj.CoreCompileInputs.cache
+E:\GIT\githubcode\NewRepo\qualified-co-location-pattern-mining-20171214\qualified co-location pattern mining\bin\Debug\qualified co-location pattern mining.exe.config
+E:\GIT\githubcode\NewRepo\qualified-co-location-pattern-mining-20171214\qualified co-location pattern mining\bin\Debug\qualified co-location pattern mining.exe
+E:\GIT\githubcode\NewRepo\qualified-co-location-pattern-mining-20171214\qualified co-location pattern mining\bin\Debug\qualified co-location pattern mining.pdb
+E:\GIT\githubcode\NewRepo\qualified-co-location-pattern-mining-20171214\qualified co-location pattern mining\obj\Debug\qualified co-location pattern mining.exe
+E:\GIT\githubcode\NewRepo\qualified-co-location-pattern-mining-20171214\qualified co-location pattern mining\obj\Debug\qualified co-location pattern mining.pdb
+E:\GIT\githubcode\NewRepo\qualified-co-location-pattern-mining-20171214\qualified co-location pattern mining\obj\Debug\qualified co-location pattern mining.csprojResolveAssemblyReference.cache
+E:\方圆\qualified-co-location-pattern-mining-20171214\qualified co-location pattern mining\bin\Debug\qualified co-location pattern mining.exe.config
+E:\方圆\qualified-co-location-pattern-mining-20171214\qualified co-location pattern mining\bin\Debug\qualified co-location pattern mining.exe
+E:\方圆\qualified-co-location-pattern-mining-20171214\qualified co-location pattern mining\bin\Debug\qualified co-location pattern mining.pdb
+E:\方圆\qualified-co-location-pattern-mining-20171214\qualified co-location pattern mining\obj\Debug\qualified co-location pattern mining.csprojResolveAssemblyReference.cache
+E:\方圆\qualified-co-location-pattern-mining-20171214\qualified co-location pattern mining\obj\Debug\qualified_co_location_pattern_mining.Form.resources
+E:\方圆\qualified-co-location-pattern-mining-20171214\qualified co-location pattern mining\obj\Debug\qualified_co_location_pattern_mining.Properties.Resources.resources
+E:\方圆\qualified-co-location-pattern-mining-20171214\qualified co-location pattern mining\obj\Debug\qualified co-location pattern mining.csproj.GenerateResource.Cache
+E:\方圆\qualified-co-location-pattern-mining-20171214\qualified co-location pattern mining\obj\Debug\qualified co-location pattern mining.csproj.CoreCompileInputs.cache
+E:\方圆\qualified-co-location-pattern-mining-20171214\qualified co-location pattern mining\obj\Debug\qualified co-location pattern mining.exe
+E:\方圆\qualified-co-location-pattern-mining-20171214\qualified co-location pattern mining\obj\Debug\qualified co-location pattern mining.pdb
+C:\Users\fxy\Desktop\方圆\qualified-co-location-pattern-mining-20171214\qualified co-location pattern mining\bin\Debug\qualified co-location pattern mining.exe.config
+C:\Users\fxy\Desktop\方圆\qualified-co-location-pattern-mining-20171214\qualified co-location pattern mining\bin\Debug\qualified co-location pattern mining.exe
+C:\Users\fxy\Desktop\方圆\qualified-co-location-pattern-mining-20171214\qualified co-location pattern mining\bin\Debug\qualified co-location pattern mining.pdb
+C:\Users\fxy\Desktop\方圆\qualified-co-location-pattern-mining-20171214\qualified co-location pattern mining\obj\Debug\qualified co-location pattern mining.csprojResolveAssemblyReference.cache
+C:\Users\fxy\Desktop\方圆\qualified-co-location-pattern-mining-20171214\qualified co-location pattern mining\obj\Debug\qualified_co_location_pattern_mining.Form.resources
+C:\Users\fxy\Desktop\方圆\qualified-co-location-pattern-mining-20171214\qualified co-location pattern mining\obj\Debug\qualified_co_location_pattern_mining.Properties.Resources.resources
+C:\Users\fxy\Desktop\方圆\qualified-co-location-pattern-mining-20171214\qualified co-location pattern mining\obj\Debug\qualified co-location pattern mining.csproj.GenerateResource.Cache
+C:\Users\fxy\Desktop\方圆\qualified-co-location-pattern-mining-20171214\qualified co-location pattern mining\obj\Debug\qualified co-location pattern mining.csproj.CoreCompileInputs.cache
+C:\Users\fxy\Desktop\方圆\qualified-co-location-pattern-mining-20171214\qualified co-location pattern mining\obj\Debug\qualified co-location pattern mining.exe
+C:\Users\fxy\Desktop\方圆\qualified-co-location-pattern-mining-20171214\qualified co-location pattern mining\obj\Debug\qualified co-location pattern mining.pdb
