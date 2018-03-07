@@ -9,9 +9,11 @@ namespace qualified_co_location_pattern_mining
     class Occupation
     {
  
-        public List<SortedSet<int>> PA(int k,List<List<int>> list)//输入实例表，划分产生PA的集合//注意在产生的实例表最后一行必须再加上一行空集，以保证行号可以完全输出
+        public List<SortedSet<int>> PA(int k,List<List<int>> list1)//输入实例表，划分产生PA的集合//注意在产生的实例表最后一行必须再加上一行空集，以保证行号可以完全输出
         {
             //人为添加空集
+            List<List<int>> list = new List<List<int>>();
+            list.AddRange(list1);
             List<int> temlist1 = new List<int>() {};
             list.Add(temlist1);
             List<SortedSet<int>> listPA = new List<SortedSet<int>>();//装PA包括的实例
@@ -52,11 +54,12 @@ namespace qualified_co_location_pattern_mining
         }
          
 
-        public List<SortedSet<int>> CA(SortedSet<int> listline, List<List<int>> listcn)//输入表实例行号以及表实例邻居，产生对应PA的CN的集合
+        public List<SortedSet<int>> CA(SortedSet<int> listline, List<List<int>> listcn1)//输入表实例行号以及表实例邻居，产生对应PA的CN的集合
         {
             List<SortedSet<int>> listCA = new List<SortedSet<int>>();//装PA包括的实例
             List<int> line = new List<int>();
-
+            List<List<int>> listcn = new List<List<int>>();
+            listcn.AddRange(listcn1);
             foreach (var item in listline)//取出listline
             {
                 line.Add(item);

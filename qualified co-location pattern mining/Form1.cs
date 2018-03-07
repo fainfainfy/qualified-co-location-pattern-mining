@@ -187,29 +187,29 @@ namespace qualified_co_location_pattern_mining
             T2 = classcons.TwoSize(INs, prev, TypeCountList, TypeInsList,w,occ);//得到二阶模式
             //================================================================输出头文件行1特征表行2min_prev
 
-            foreach (var item1 in T2)
-            {
-                if (!item1.Key.Contains("extend"))
-                {
-                    StringBuilder fs2string = new StringBuilder();
-                    string h1 = item1.Key;
-                    string hpi = T2[h1][T2[h1].Count() - 1][0].ToString();
-                    string hoi = T2[h1][T2[h1].Count() - 1][1].ToString();
-                    string hwpo = T2[h1][T2[h1].Count() - 1][2].ToString();
-                    fs2string.Append(h1);
-                    fs2string.Append("=PI:");
-                    fs2string.Append((double.Parse(hpi) / 100.00).ToString());
-                    fs2string.Append("  OI:");
-                    fs2string.Append((double.Parse(hoi) / 100.00).ToString());
-                    fs2string.Append("  Quality:");
-                    fs2string.Append((double.Parse(hwpo) / 100.00).ToString());
-                    printf11.Add(fs2string.ToString());
-                }
-                else { }
-            }
+            //foreach (var item1 in T2)
+            //{
+            //    if (!item1.Key.Contains("extend"))
+            //    {
+            //        StringBuilder fs2string = new StringBuilder();
+            //        string h1 = item1.Key;
+            //        string hpi = T2[h1][T2[h1].Count() - 1][0].ToString();
+            //        string hoi = T2[h1][T2[h1].Count() - 1][1].ToString();
+            //        string hwpo = T2[h1][T2[h1].Count() - 1][2].ToString();
+            //        fs2string.Append(h1);
+            //        fs2string.Append("=PI:");
+            //        fs2string.Append((double.Parse(hpi) / 100.00).ToString());
+            //        fs2string.Append("  OI:");
+            //        fs2string.Append((double.Parse(hoi) / 100.00).ToString());
+            //        fs2string.Append("  Quality:");
+            //        fs2string.Append((double.Parse(hwpo) / 100.00).ToString());
+            //        printf11.Add(fs2string.ToString());
+            //    }
+            //    else { }
+            //}
 
             //=======================================================================================================输出二阶aaaaa
-            if (!System.IO.File.Exists(outputname))
+           if (!System.IO.File.Exists(outputname))
             {
                 FileStream files1 = new FileStream(outputname, FileMode.Create, FileAccess.Write);//创建写入文件
                 StreamWriter sw = new StreamWriter(files1);
@@ -217,10 +217,10 @@ namespace qualified_co_location_pattern_mining
                 sw.WriteLine("d=" + rand.ToString());
                 sw.WriteLine("min_occ=" + occ.ToString());
                 sw.WriteLine("weight=" + w.ToString());
-                foreach (var item in printf11)//获得初始数据
+                /*foreach (var item in printf11)//获得初始数据
                 {
                     sw.WriteLine(item);//开始写入值
-                }
+                }*/
                 sw.Close();
                 files1.Close();
             }
@@ -228,24 +228,78 @@ namespace qualified_co_location_pattern_mining
             SortedList<int, string> listfn = new SortedList<int, string>();
             List<SortedList<string, List<List<int>>>> fnn = new List<SortedList<string, List<List<int>>>>();
             fnn.Add(T2);
-            for (int i = 3; i < 10 ; i++)
+            SortedList<string, List<List<int>>> T3 = new SortedList<string, List<List<int>>>();//二阶模式表实例集
+             T3 = classcons.MoreSize(T2, INs, prev, TypeCountList, TypeInsList, w, occ);//得到k+1阶
+            SortedList<string, List<List<int>>> T4 = new SortedList<string, List<List<int>>>();//二阶模式表实例集
+            T4 = classcons.MoreSize(T3, INs, prev, TypeCountList, TypeInsList, w, occ);//得到k+1阶
+            int o = 0;
+            /*
+
+            foreach (var item1 in T3)
             {
-                 
+                if (!item1.Key.Contains("extend"))
+                {
+                    StringBuilder fs2string = new StringBuilder();
+                    string h1 = item1.Key;
+                    string hpi = T3[h1][T3[h1].Count() - 1][0].ToString();
+                    string hoi = T3[h1][T3[h1].Count() - 1][1].ToString();
+                    string hwpo = T3[h1][T3[h1].Count() - 1][2].ToString();
+                    fs2string.Append(h1);
+                    fs2string.Append("=pi:");
+                    fs2string.Append((double.Parse(hpi) / 100.00).ToString());
+                    fs2string.Append("  oi:");
+                    fs2string.Append((double.Parse(hoi) / 100.00).ToString());
+                    fs2string.Append("  quality:");
+                    fs2string.Append((double.Parse(hwpo) / 100.00).ToString());
+                    //printf11.Add(fs2string.ToString());
+                }
+                else { }
+            }
+
+            SortedList<string, List<List<int>>> T4 = new SortedList<string, List<List<int>>>();//二阶模式表实例集
+            T4 = classcons.MoreSize(T3, INs, prev, TypeCountList, TypeInsList, w, occ);//得到k+1阶
+            int o = 0;
+            foreach (var item1 in T4)
+            {
+                if (!item1.Key.Contains("extend"))
+                {
+                    StringBuilder fs2string = new StringBuilder();
+                    string h1 = item1.Key;
+                    string hpi = T4[h1][T4[h1].Count() - 1][0].ToString();
+                    string hoi = T4[h1][T4[h1].Count() - 1][1].ToString();
+                    string hwpo = T4[h1][T4[h1].Count() - 1][2].ToString();
+                    fs2string.Append(h1);
+                    fs2string.Append("=pi:");
+                    fs2string.Append((double.Parse(hpi) / 100.00).ToString());
+                    fs2string.Append("  oi:");
+                    fs2string.Append((double.Parse(hoi) / 100.00).ToString());
+                    fs2string.Append("  quality:");
+                    fs2string.Append((double.Parse(hwpo) / 100.00).ToString());
+                    //printf11.Add(fs2string.ToString());
+                }
+                else { }
+            }
+
+             */
+            while (fnn[0].Count!=0)
+            {
                 SortedList<string, List<List<int>>> CNk = new SortedList<string, List<List<int>>>();
-                CNk = classcons.MoreSize1(fnn[0], INs, prev, TypeCountList, TypeInsList,w,occ);//得到k+1阶
-               // if (fnn[0].Count == 0) { break; }
+                CNk = classcons.MoreSize(fnn[0], INs, prev, TypeCountList, TypeInsList,w,occ);//得到k+1阶
+                //if (fnn[0].Count == 0) { break; }
                 fnn.Add(CNk);
                 //按阶输出多阶
                 List<string> printfm = new List<string>();
-                foreach (var item1 in CNk)
+                //输出上一阶模式
+                #region
+                foreach (var item1 in fnn[0].Take(fnn[0].Count-1))
                 {
-                    if (!item1.Key.Contains("extend"))
-                    {
+                    //if (!item1.Key.Contains("extend"))
+                    //{
                         StringBuilder fsstring = new StringBuilder();
                         string h1 = item1.Key;
-                        string hpi = CNk[h1][CNk[h1].Count() - 1][0].ToString();
-                        string hoi = CNk[h1][CNk[h1].Count() - 1][1].ToString();
-                        string hwpo = CNk[h1][CNk[h1].Count() - 1][2].ToString();
+                        string hpi = fnn[0][h1][fnn[0][h1].Count() - 1][0].ToString();
+                        string hoi = fnn[0][h1][fnn[0][h1].Count() - 1][1].ToString();
+                        string hwpo = fnn[0][h1][fnn[0][h1].Count() - 1][2].ToString();
                         fsstring.Append(h1);
                         fsstring.Append("=PI:");
                         fsstring.Append((double.Parse(hpi) / 100.00).ToString());
@@ -254,22 +308,24 @@ namespace qualified_co_location_pattern_mining
                         fsstring.Append("  Quality:");
                         fsstring.Append((double.Parse(hwpo) / 100.00).ToString());
                         printfm.Add(fsstring.ToString());
-                    }
-
-                    FileStream files2 = new FileStream(outputname, FileMode.Append);
+                       Console.WriteLine(fsstring);
+                   // }
+                }
+                FileStream files2 = new FileStream(outputname, FileMode.Append);
                     StreamWriter sw2 = new StreamWriter(files2);
                     foreach (var item in printfm)//获得初始数据
                     {
                         sw2.WriteLine(item);//开始写入值
                     }
                     sw2.Close();
-                }
+                
+                #endregion
                 fnn.RemoveAt(0);
             }
         }
 
-        #region
-        //skyline选项----
+        #region//skyline选项----
+
         private void button_beginSkyline_Click(object sender, EventArgs e)
         {
             try
@@ -948,9 +1004,24 @@ namespace qualified_co_location_pattern_mining
          }*/
             #endregion
 
-            string pname = "1+2";
-            string hh=pname.Substring(0,pname.Length-2);
-            MessageBox.Show(hh);
+            string pname = "1+2+4";
+
+
+            List<int> list1 = new List<int>();
+            list1.Add(1); list1.Add(2); list1.Add(3); list1.Add(4); list1.Add(5);
+            StringInstance snew = new StringInstance();
+
+            // extendlist1 = LastCN[snew.SplitString1(pname, '+')[0] + "+extend"][0].ToList();
+            var extendlist2 = snew.SplitString1(pname, '+').Select<string, int>(x => Convert.ToInt32(x));//将扩展特征中属于自身模式的特征去掉
+            extendlist2.ToList();
+            var extendlist3 = list1.Except(extendlist2);//得到所有的模式扩展候选特征集合
+
+            List<int> pnamelist = new List<int>();//被扩展模式pk-1的特征集
+            pnamelist = extendlist2.ToList();
+            for(int i=0;i< pnamelist.Count;i++)
+            {
+                MessageBox.Show(pnamelist[i].ToString());
+            }
         }//test函数结尾
 
         private void label4_Click(object sender, EventArgs e)
